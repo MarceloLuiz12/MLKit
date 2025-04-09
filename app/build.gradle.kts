@@ -60,4 +60,15 @@ dependencies {
     //ML KIT
     implementation(libs.play.services.mlkit.document.scanner)
     implementation(libs.coil.compose)
+    implementation(libs.face.detection)
+    implementation(libs.text.recognition)
+
+    //Camera
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.extensions)
+
+    implementation(libs.accompanist.permissions)
 }
