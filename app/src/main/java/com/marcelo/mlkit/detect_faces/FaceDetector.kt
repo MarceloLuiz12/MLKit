@@ -17,6 +17,57 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlin.math.abs
 
+/**
+ * Classe responsável por analisar quadros de imagem em tempo real e detectar rostos dentro de uma área oval definida.
+ *
+ * Utiliza a API de detecção de faces do Google ML Kit em conjunto com a análise de imagem da CameraX
+ * para identificar se um rosto está presente dentro de uma determinada região oval da tela, com base
+ * em posição e tamanho esperados.
+ *
+ * ### Principais funcionalidades:
+ * - Detecta rostos com base em posição e tamanho.
+ * - Verifica se o centro do rosto detectado está dentro de um oval definido.
+ * - Limita a frequência de detecção para reduzir uso de recursos (throttle).
+ * - Executa análise em background com uso de corrotinas (CoroutineScope).
+ *
+ * @param ovalCenter Centro do oval (em coordenadas da imagem) dentro do qual um rosto válido deve estar.
+ * @param ovalRadiusX Raio horizontal (em pixels) do oval.
+ * @param ovalRadiusY Raio vertical (em pixels) do oval.
+ * @param onFaceDetected Callback que retorna `true` se um rosto for detectado dentro do oval, `false` caso contrário.
+ *
+ * ### Como funciona:
+ * A cada frame da câmera, a classe:
+ * 1. Converte a imagem para `InputImage` do ML Kit.
+ * 2. Processa a imagem com o detector de faces do ML Kit.
+ * 3. Verifica se algum dos rostos detectados atende aos critérios:
+ *    - O centro do rosto está dentro da área oval.
+ *    - O tamanho do rosto está dentro de limites mínimos e máximos.
+ * 4. Retorna o resultado via `onFaceDetected`.
+ *
+ * ### Requisitos:
+ * - Dependência ML Kit Face Detection.
+ * - CameraX configurada com ImageAnalysis.
+ *
+ * ### Exemplos de uso:
+ *
+ * ```
+ * val analyzer = FaceDetector(
+ *     ovalCenter = Offset(500f, 800f),
+ *     ovalRadiusX = 300f,
+ *     ovalRadiusY = 400f
+ * ) { isDetected ->
+ *     if (isDetected) {
+ *         Log.d("Face", "Rosto dentro do oval!")
+ *     }
+ * }
+ * ```
+ *
+ * ### Observações:
+ * - Essa classe aplica um pequeno delay (`THROTTLE_TIMEOUT_MS`) entre análises para reduzir consumo de CPU.
+ * - É importante chamar `imageProxy.close()` após o processamento para liberar o frame da câmera.
+ *
+ * @author Marcelo
+ */
 class FaceDetector(
     private val ovalCenter: Offset,
     private val ovalRadiusX: Float,
