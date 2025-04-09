@@ -14,6 +14,7 @@ activityCompose = "1.10.1"
 composeBom = "2024.04.01"
 playServicesMlkitDocumentScanner = "16.0.0-beta1"
 cameraCore = "1.4.2"
+playServicesMlkitFaceDetection = "17.1.0"
 textRecognition = "16.0.1"
 
 [libraries]
@@ -40,6 +41,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 play-services-mlkit-document-scanner = { module = "com.google.android.gms:play-services-mlkit-document-scanner", version.ref = "playServicesMlkitDocumentScanner" }
 androidx-camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "cameraCore" }
+play-services-mlkit-face-detection = { module = "com.google.android.gms:play-services-mlkit-face-detection", version.ref = "playServicesMlkitFaceDetection" }
 text-recognition = { module = "com.google.mlkit:text-recognition", version.ref = "textRecognition" }
 
 [plugins]

@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 @Composable
 fun MenuScreen(
     onNavigateToScanner: () -> Unit,
-    onNavigateToTextRecognition: () -> Unit
+    onNavigateToTextRecognition: () -> Unit,
+    onNavigateToFaceDetection: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -25,6 +26,10 @@ fun MenuScreen(
 
         Button(onClick = onNavigateToTextRecognition) {
             Text("Abrir Reconhecimento de Texto")
+        }
+
+        Button(onClick = onNavigateToFaceDetection) {
+            Text("Abrir Reconhecimento de Rosto")
         }
     }
 }

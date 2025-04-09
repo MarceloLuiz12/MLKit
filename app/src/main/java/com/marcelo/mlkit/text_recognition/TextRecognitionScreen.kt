@@ -39,11 +39,11 @@ import com.marcelo.mlkit.text_recognition.no_permission.NoPermissionScreen
 @Composable
 fun TextRecognitionScreen(){
     val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
-    if (cameraPermissionState.status.isGranted) {
-        CameraContent()
-    } else {
+    if (cameraPermissionState.status.isGranted.not()) {
         NoPermissionScreen(cameraPermissionState::launchPermissionRequest)
+        return
     }
+    CameraContent()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,7 +53,6 @@ private fun CameraContent() {
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
     val cameraController: LifecycleCameraController = remember { LifecycleCameraController(context) }
     var detectedText: String by remember { mutableStateOf("No text detected yet..") }
-
     fun onTextUpdated(updatedText: String) {
         detectedText = updatedText
     }

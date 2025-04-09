@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.marcelo.mlkit.detect_faces.FaceDetectionScreen
 import com.marcelo.mlkit.menu.MenuScreen
 import com.marcelo.mlkit.scanner.ScannerScreen
 import com.marcelo.mlkit.text_recognition.TextRecognitionScreen
@@ -25,7 +26,8 @@ class MainActivity : ComponentActivity() {
             when (currentScreen) {
                 Screen.MENU -> MenuScreen(
                     onNavigateToScanner = { currentScreen = Screen.SCANNER },
-                    onNavigateToTextRecognition = { currentScreen = Screen.TEXT_RECOGNITION }
+                    onNavigateToTextRecognition = { currentScreen = Screen.TEXT_RECOGNITION },
+                    onNavigateToFaceDetection = { currentScreen = Screen.FACE_DETECTION}
                 )
 
                 Screen.SCANNER -> ScannerScreen(
@@ -35,11 +37,13 @@ class MainActivity : ComponentActivity() {
                 )
 
                 Screen.TEXT_RECOGNITION -> TextRecognitionScreen()
+
+                Screen.FACE_DETECTION -> FaceDetectionScreen()
             }
         }
     }
 }
 
 enum class Screen {
-    MENU, SCANNER, TEXT_RECOGNITION
+    MENU, SCANNER, TEXT_RECOGNITION, FACE_DETECTION
 }
